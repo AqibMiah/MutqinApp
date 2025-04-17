@@ -6,6 +6,10 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		4A7A93D62DB046D1008EB959 /* SQLite in Frameworks */ = {isa = PBXBuildFile; productRef = 4A7A93D52DB046D1008EB959 /* SQLite */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
 		4A7A93932DAFD36B008EB959 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -24,9 +28,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		4A7A93822DAFD368008EB959 /* MutqinHifdhApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MutqinHifdhApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		4A7A93922DAFD36B008EB959 /* MutqinHifdhAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MutqinHifdhAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		4A7A939C2DAFD36B008EB959 /* MutqinHifdhAppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MutqinHifdhAppUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		4A7A93DD2DB04941008EB959 /* MutqinHifdhApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MutqinHifdhApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		4A7A93DE2DB04941008EB959 /* MutqinHifdhAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MutqinHifdhAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		4A7A93DF2DB04941008EB959 /* MutqinHifdhAppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MutqinHifdhAppUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -52,6 +56,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4A7A93D62DB046D1008EB959 /* SQLite in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -78,18 +83,10 @@
 				4A7A93842DAFD368008EB959 /* MutqinHifdhApp */,
 				4A7A93952DAFD36B008EB959 /* MutqinHifdhAppTests */,
 				4A7A939F2DAFD36B008EB959 /* MutqinHifdhAppUITests */,
-				4A7A93832DAFD368008EB959 /* Products */,
+				4A7A93DD2DB04941008EB959 /* MutqinHifdhApp.app */,
+				4A7A93DE2DB04941008EB959 /* MutqinHifdhAppTests.xctest */,
+				4A7A93DF2DB04941008EB959 /* MutqinHifdhAppUITests.xctest */,
 			);
-			sourceTree = "<group>";
-		};
-		4A7A93832DAFD368008EB959 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				4A7A93822DAFD368008EB959 /* MutqinHifdhApp.app */,
-				4A7A93922DAFD36B008EB959 /* MutqinHifdhAppTests.xctest */,
-				4A7A939C2DAFD36B008EB959 /* MutqinHifdhAppUITests.xctest */,
-			);
-			name = Products;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -112,9 +109,10 @@
 			);
 			name = MutqinHifdhApp;
 			packageProductDependencies = (
+				4A7A93D52DB046D1008EB959 /* SQLite */,
 			);
 			productName = MutqinHifdhApp;
-			productReference = 4A7A93822DAFD368008EB959 /* MutqinHifdhApp.app */;
+			productReference = 4A7A93DD2DB04941008EB959 /* MutqinHifdhApp.app */;
 			productType = "com.apple.product-type.application";
 		};
 		4A7A93912DAFD36B008EB959 /* MutqinHifdhAppTests */ = {
@@ -137,7 +135,7 @@
 			packageProductDependencies = (
 			);
 			productName = MutqinHifdhAppTests;
-			productReference = 4A7A93922DAFD36B008EB959 /* MutqinHifdhAppTests.xctest */;
+			productReference = 4A7A93DE2DB04941008EB959 /* MutqinHifdhAppTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 		4A7A939B2DAFD36B008EB959 /* MutqinHifdhAppUITests */ = {
@@ -160,7 +158,7 @@
 			packageProductDependencies = (
 			);
 			productName = MutqinHifdhAppUITests;
-			productReference = 4A7A939C2DAFD36B008EB959 /* MutqinHifdhAppUITests.xctest */;
+			productReference = 4A7A93DF2DB04941008EB959 /* MutqinHifdhAppUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
 /* End PBXNativeTarget section */
@@ -195,8 +193,11 @@
 			);
 			mainGroup = 4A7A93792DAFD368008EB959;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				4A7A93D42DB046D1008EB959 /* XCRemoteSwiftPackageReference "SQLite.swift" */,
+			);
 			preferredProjectObjectVersion = 77;
-			productRefGroup = 4A7A93832DAFD368008EB959 /* Products */;
+			productRefGroup = 4A7A93792DAFD368008EB959;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
@@ -558,6 +559,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		4A7A93D42DB046D1008EB959 /* XCRemoteSwiftPackageReference "SQLite.swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/stephencelis/SQLite.swift.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.15.3;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		4A7A93D52DB046D1008EB959 /* SQLite */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4A7A93D42DB046D1008EB959 /* XCRemoteSwiftPackageReference "SQLite.swift" */;
+			productName = SQLite;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 4A7A937A2DAFD368008EB959 /* Project object */;
 }
