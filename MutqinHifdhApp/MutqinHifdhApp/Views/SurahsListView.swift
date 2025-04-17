@@ -183,7 +183,7 @@ struct SurahsListView: View {
                     .padding(.bottom, 70) // Add padding for tab bar
                 }
             }
-            .background(Color.hex("0E5C53"))
+            .background(Color.mutqinGreen)
             .navigationBarHidden(true)
         }
     }

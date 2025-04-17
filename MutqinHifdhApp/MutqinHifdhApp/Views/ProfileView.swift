@@ -176,7 +176,7 @@ struct AchievementCard: View {
                 
                 Image(systemName: achievement.icon)
                     .font(.system(size: 24))
-                    .foregroundColor(achievement.isCompleted ? Color.hex("0E5C53") : .white)
+                    .foregroundColor(achievement.isCompleted ? Color.mutqinGreen : .white)
             }
             
             // Content

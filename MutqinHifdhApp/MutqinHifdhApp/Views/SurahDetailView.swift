@@ -77,7 +77,7 @@ struct SurahDetailView: View {
             }
             .padding(.horizontal, 20)
         }
-        .background(Color.hex("0E5C53"))
+        .background(Color.mutqinGreen)
         .navigationBarTitleDisplayMode(.inline)
         .fullScreenCover(isPresented: $showMemorizationView) {
             NavigationView {

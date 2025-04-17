@@ -6,7 +6,7 @@ struct Task: Identifiable {
     let ayahNumber: Int
     let isCompleted: Bool
     let isLocked: Bool
-    let ayahContent: (arabicText: String, translation: String)?
+    let ayahContent: AyahContent?
     
     enum TaskType {
         case ayah
@@ -14,10 +14,92 @@ struct Task: Identifiable {
     }
 }
 
+struct StartMemorizingButton: View {
+    let action: () -> Void
+    
+    var body: some View {
+        Button(action: action) {
+            Text("Start")
+                .font(.system(size: 16, weight: .semibold))
+                .foregroundColor(.black)
+                .frame(width: 80)
+                .padding(.vertical, 8)
+                .background(Color.white)
+                .cornerRadius(8)
+        }
+    }
+}
+
+struct TaskRow: View {
+    let task: Task
+    let action: () -> Void
+    
+    var body: some View {
+        HStack(spacing: 16) {
+            // Timeline circle and line
+            VStack(spacing: 0) {
+                Circle()
+                    .fill(task.isLocked ? Color.gray.opacity(0.3) : Color.white)
+                    .frame(width: 12, height: 12)
+                
+                Rectangle()
+                    .fill(Color.white.opacity(0.2))
+                    .frame(width: 2)
+                    .frame(maxHeight: .infinity)
+            }
+            .frame(width: 12)
+            
+            // Task content
+            VStack(alignment: .leading, spacing: 8) {
+                HStack {
+                    // Task icon and title
+                    Group {
+                        switch task.type {
+                        case .ayah:
+                            HStack {
+                                Image(systemName: "book.fill")
+                                Text("Ayah \(task.ayahNumber)")
+                            }
+                        case .test:
+                            HStack {
+                                Image(systemName: "star.fill")
+                                Text("Test (Ayahs \(task.ayahNumber-4)-\(task.ayahNumber))")
+                            }
+                        }
+                    }
+                    .foregroundColor(task.isLocked ? .gray : .white)
+                    
+                    Spacer()
+                    
+                    if task.isCompleted {
+                        Image(systemName: "checkmark.circle.fill")
+                            .foregroundColor(.green)
+                    } else if task.isLocked {
+                        Image(systemName: "lock.fill")
+                            .foregroundColor(.gray)
+                    } else if task.type == .ayah {
+                        StartMemorizingButton(action: action)
+                    }
+                }
+                
+                // Show preview of ayah content if available
+                if task.type == .ayah, let content = task.ayahContent {
+                    Text(content.arabicText)
+                        .font(.system(size: 18))
+                        .foregroundColor(.white.opacity(0.8))
+                        .lineLimit(2)
+                        .padding(.top, 4)
+                }
+            }
+            .padding(.vertical, 16)
+        }
+    }
+}
+
 struct MemorizationView: View {
     let surah: Surah
     @Environment(\.dismiss) private var dismiss
-    @State private var selectedAyah: Int?
+    @State private var selectedTask: Task?
     @State private var showAyahView = false
     @State private var tasks: [Task] = []
     
@@ -60,7 +142,7 @@ struct MemorizationView: View {
     
     var body: some View {
         ZStack {
-            Color.hex("0E5C53")
+            Color.mutqinGreen
                 .ignoresSafeArea()
             
             ScrollView {
@@ -117,9 +199,8 @@ struct MemorizationView: View {
                             ForEach(tasks) { task in
                                 TaskRow(task: task) {
                                     if !task.isLocked && task.type == .ayah {
-                                        print("MemorizationView: Selected Ayah \(task.ayahNumber)")
-                                        selectedAyah = task.ayahNumber
-                                        showAyahView = true
+                                        print("Starting memorization for Surah \(surah.number), Ayah \(task.ayahNumber)")
+                                        selectedTask = task
                                     }
                                 }
                             }
@@ -129,90 +210,17 @@ struct MemorizationView: View {
                 }
             }
         }
-        .onAppear {
-            print("MemorizationView: View appeared")
-            loadTasks()
-        }
-        .fullScreenCover(isPresented: $showAyahView) {
-            if let ayahNumber = selectedAyah {
-                AyahView(surah: surah, ayahNumber: ayahNumber)
+        .fullScreenCover(item: $selectedTask) { task in
+            if let ayahContent = task.ayahContent {
+                AyahView(surah: surah.number, ayahNumber: task.ayahNumber, preloadedContent: ayahContent)
             } else {
-                EmptyView()
+                Text("Error: No content available for this ayah")
+                    .foregroundColor(.red)
             }
         }
-    }
-}
-
-struct TaskRow: View {
-    let task: Task
-    let action: () -> Void
-    
-    var body: some View {
-        HStack(spacing: 16) {
-            // Timeline circle and line
-            VStack(spacing: 0) {
-                Circle()
-                    .fill(task.isLocked ? Color.gray.opacity(0.3) : Color.white)
-                    .frame(width: 12, height: 12)
-                
-                Rectangle()
-                    .fill(Color.white.opacity(0.2))
-                    .frame(width: 2)
-                    .frame(maxHeight: .infinity)
-            }
-            .frame(width: 12)
-            
-            // Task content
-            VStack(alignment: .leading, spacing: 8) {
-                HStack {
-                    // Task icon and title
-                    Group {
-                        switch task.type {
-                        case .ayah:
-                            HStack {
-                                Image(systemName: "book.fill")
-                                Text("Ayah \(task.ayahNumber)")
-                            }
-                        case .test:
-                            HStack {
-                                Image(systemName: "star.fill")
-                                Text("Test (Ayahs \(task.ayahNumber-4)-\(task.ayahNumber))")
-                            }
-                        }
-                    }
-                    .foregroundColor(task.isLocked ? .gray : .white)
-                    
-                    Spacer()
-                    
-                    if task.isCompleted {
-                        Image(systemName: "checkmark.circle.fill")
-                            .foregroundColor(.green)
-                    } else if task.isLocked {
-                        Image(systemName: "lock.fill")
-                            .foregroundColor(.gray)
-                    } else if task.type == .ayah {
-                        Button(action: action) {
-                            Text("Start")
-                                .font(.system(size: 14, weight: .medium))
-                                .foregroundColor(.black)
-                                .padding(.horizontal, 16)
-                                .padding(.vertical, 8)
-                                .background(Color.white)
-                                .cornerRadius(8)
-                        }
-                    }
-                }
-                
-                // Show preview of ayah content if available
-                if task.type == .ayah, let content = task.ayahContent {
-                    Text(content.arabicText)
-                        .font(.system(size: 18))
-                        .foregroundColor(.white.opacity(0.8))
-                        .lineLimit(2)
-                        .padding(.top, 4)
-                }
-            }
-            .padding(.vertical, 16)
+        .onAppear {
+            print("MemorizationView appeared for Surah \(surah.number)")
+            loadTasks()
         }
     }
 } 

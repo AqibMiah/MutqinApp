@@ -11,7 +11,7 @@ struct ProgressBarView: View {
                     .frame(height: 8)
                 
                 RoundedRectangle(cornerRadius: 4)
-                    .fill(Color.hex("0E5C53"))
+                    .fill(Color.mutqinGreen)
                     .frame(width: geometry.size.width * CGFloat(progress), height: 8)
             }
         }
